@@ -26,6 +26,7 @@ function operation(aNum, bNum, operator) {
             console.log('multiply operation')
             return multiply(aNum, bNum);
         case 'divide':
+            //Solve divide by zero
             console.log('divide operation')
             return divide(aNum, bNum);
     }
@@ -72,6 +73,9 @@ function clickOperator(btnID) {
 
     if (aNum && bNum && operator) {
         total = operation(aNum, bNum, operator);
+        if (total.length > 16) { //This is not working
+            total = total.toPrecision(16);
+        }
         display.innerText = total;
         aNum = false;
         bNum = false;
@@ -105,51 +109,3 @@ operatorBtns.forEach(button => {
 })
 
 display.innerText = 0;
-
-/////////////////////////////////
-
-//operatorClicked(btnID)
-    //IF btnID === clear
-        //clear all values and return
-    //IF !aNum
-        //aNum = display innerText
-        //newInteger = true
-    //ELSE
-        //bNum = display innerText
-        //newInteger = true
-    //IF aNum & bNum & operator 
-        //total = operation function
-        //display innerText = total
-        //aNum = total
-        //bNum = false
-        //total = false
-        //newInteger = true
-    //IF operator !== btnID && btnID !== clear
-        //operator = btnID
-    //return
-
-//clickOperator(btnID)
-    //IF btnID === clear
-        //clear all values
-        //return
-    //ELSE 
-        //IF (aNum && bNum && operator)
-            //total = operation(aNum, bNum, operator)
-            //display innerText = total
-            //aNum = total
-            //bNum = false
-            //IF (btnID !== equal) operator = btnID
-
-    //IF (!aNum)
-        //aNum = display innerText
-        //newInteger = true
-    //ElSE
-        //bNum = display innerText
-        //newInteger = true
-
-    //IF (operator !== btnID && btnID !== equal) operator = btnID
-
-    //return
-
-
-    
