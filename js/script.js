@@ -3,8 +3,8 @@ const display = document.getElementById('display');
 const integerBtns = document.querySelectorAll('.integer-btn');
 const operatorBtns = document.querySelectorAll('.operator-btn');
 
-let aNum;
-let bNum;
+let aNum = null;
+let bNum = null;
 let operator;
 let total
 let newInteger = true;
@@ -12,7 +12,16 @@ let newInteger = true;
 const add = (a,b) => a + b;
 const subtract = (a,b) => a - b;
 const multiply = (a,b) => a * b;
-const divide = (a,b) => a / b;
+// const divide = (a,b) => a / b;
+
+function divide(a,b) {
+    if (b === 0) { 
+        return "Not a Number"
+    } else {
+        console.log('divide operation')
+        return a / b
+    }
+}
 
 function operation(aNum, bNum, operator) {
     switch (operator) {
@@ -26,11 +35,10 @@ function operation(aNum, bNum, operator) {
             console.log('multiply operation')
             return multiply(aNum, bNum);
         case 'divide':
-            //Solve divide by zero
-            console.log('divide operation')
+            console.log('divide operation');
             return divide(aNum, bNum);
+        }  
     }
-}
 
 function clickInteger(btnID) {
     if (newInteger === true) {
@@ -71,14 +79,15 @@ function clickOperator(btnID) {
         newInteger = true;
     }
 
-    if (aNum && bNum && operator) {
+    if (aNum !== null && bNum !== null && operator) {
         total = operation(aNum, bNum, operator);
-        if (total.length > 16) { //This is not working
+        console.log(total);
+        if (total.toString().length > 16) { //This is not working
             total = total.toPrecision(16);
         }
         display.innerText = total;
-        aNum = false;
-        bNum = false;
+        aNum = null;
+        bNum = null;
         newInteger = true;
         if (btnID === 'equal') {
             operator = false;
@@ -107,5 +116,12 @@ operatorBtns.forEach(button => {
         clickOperator(btnID);
     })
 })
+
+document.addEventListener('keydown', (e) => {
+    const keyPressed = e.key;
+    if (keyPressed >= 0 && keyPressed <= 9) {
+        clickInteger(keyPressed);
+    }
+});
 
 display.innerText = 0;
